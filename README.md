@@ -1,59 +1,69 @@
-# Frontend
+# Frontend - Angular 19
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.5.
+## Configuración del Backend
 
-## Development server
-
-To start a local development server, run:
-
-```bash
-ng serve
+La aplicación está configurada para conectarse a un backend local en:
+```
+http://localhost:3000/api
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+### Cambiar la URL del Backend
 
-## Code scaffolding
+Edita el archivo `src/environments/environment.ts`:
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+```typescript
+export const environment = {
+  production: false,
+  apiUrl: 'http://localhost:3000/api' // Cambia aquí tu URL
+};
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Para producción, edita `src/environments/environment.prod.ts`.
+
+### Endpoints Esperados
+
+El backend debe exponer los siguientes endpoints:
+
+#### Productos
+- `GET /productos?page=1&limit=10&search=` - Listar productos
+- `GET /productos/:id` - Obtener un producto
+- `POST /productos` - Crear producto
+- `PUT /productos/:id` - Actualizar producto
+- `DELETE /productos/:id` - Eliminar producto
+
+#### Autenticación (Mock)
+Actualmente la autenticación es simulada en el frontend. Para integrar autenticación real:
+1. Actualiza `src/app/core/services/auth.service.ts`
+2. Implementa endpoints de login/logout en tu backend
+3. Maneja tokens JWT si es necesario
+
+## Desarrollo
 
 ```bash
-ng generate --help
+npm install
+npm start
 ```
 
-## Building
+La aplicación se ejecutará en `http://localhost:4200`
 
-To build the project run:
+## Estructura del Proyecto
+
+```
+src/app/
+├── core/              # Servicios, modelos, guards
+│   ├── guards/
+│   ├── models/
+│   └── services/
+├── features/          # Módulos de funcionalidad
+│   ├── auth/
+│   └── products/
+├── layout/            # Componentes de layout
+└── shared/            # Componentes compartidos
+```
+
+## Docker
 
 ```bash
-ng build
+docker build -t frontend-app .
+docker run -p 80:80 frontend-app
 ```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
