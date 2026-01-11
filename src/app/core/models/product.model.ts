@@ -3,7 +3,8 @@ export interface Product {
   nombre: string;
   precio: number;
   id_categoria?: number;
-  categoria?: string; // Nombre de categoría (si viene del join)
+  categoria?: string; // Nombre de categoría (si viene del join como string)
+  Categoria?: Category; // Objeto de categoría (si viene del join como objeto)
   createdAt?: string;
   updatedAt?: string;
 }
