@@ -1,21 +1,4 @@
-version: '3.8'
-
 services:
-  app:
-    build: .
-    ports:
-      - "3000:3000"
-    environment:
-      - DB_HOST=db
-      - DB_USER=root
-      - DB_PASS=root
-      - DB_NAME=product_db
-      - DB_DIALECT=mysql
-      - JWT_SECRET=supersecretkey_change_in_production
-    depends_on:
-      - db
-    restart: always
-
   db:
     image: mysql:8.0
     environment:
@@ -23,9 +6,49 @@ services:
       MYSQL_DATABASE: product_db
     ports:
       - "3307:3306"
-    restart: always
     volumes:
       - db_data:/var/lib/mysql
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -proot --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_USER=root
+      - DB_PASS=root
+      - DB_NAME=product_db
+      - DB_DIALECT=mysql
+      - JWT_SECRET=supersecretkey_change_in_production
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:3000/ > /dev/null || exit 1"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+
+  seed:
+    build: .
+    depends_on:
+      app:
+        condition: service_healthy
+    environment:
+      - SEED_BASE_URL=http://app:3000/api
+      - SEED_ADMIN_USER=admin@vector.cl
+      - SEED_ADMIN_PASS=Admin10.01
+    command: ["node", "scripts/seed.js"]
+    restart: "no"
 
 volumes:
   db_data:

@@ -7,7 +7,7 @@ const authMiddleware = (req, res, next) => {
         return res.status(401).json({ message: 'Acceso denegado. Token no proporcionado.' });
     }
 
-    const token = authHeader.split(' ')[1]; // "Bearer <token>"
+    const token = authHeader.split(' ')[1]; 
 
     if (!token) {
         return res.status(401).json({ message: 'Formato de token inválido' });

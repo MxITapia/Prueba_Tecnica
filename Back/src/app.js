@@ -1,6 +1,5 @@
 const express = require('express');
 const cors = require('cors');
-// const productRoutes = require('./routes/productRoutes'); // Will implement later
 
 const app = express();
 
