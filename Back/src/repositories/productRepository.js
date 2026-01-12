@@ -7,10 +7,6 @@ class ProductRepository {
         const where = {};
         if (nombre) where.nombre = { [Op.like]: `%${nombre}%` };
 
-        // Note: Filter by category name now requires a join, simpler to filter by id_categoria or join
-        // For simplicity, let's assume 'categoria' query param matches category name via inclusion or exact match?
-        // The previous implementation used a string column. To filter by category NAME now, we need to include Model.
-
         const include = [{
             model: Category,
             as: 'categoria',
