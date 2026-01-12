@@ -5,8 +5,8 @@ Repositorio con **2 directorios principales**:
 - **`Front/`** → SPA en **Angular 19** (gestión de productos + filtros, login, UI).
 - **`Back/`** → API REST en **Node.js + Express** + **MySQL** (CRUD productos, categorías, auth).
 
-> ✅ Incluye **Dockerfile** para Front y Back.  
-> ✅ Incluye **docker-compose** para levantar **Back + MySQL** y **seed automático** (usuario demo + categorías).
+>  Incluye **Dockerfile** para Front y Back.  
+>  Incluye **docker-compose** para levantar **Back + MySQL** y **seed automático** (usuario demo + categorías).
 
 ---
 
@@ -192,8 +192,8 @@ npm run start
 
 ## ¿Borro `seed.ps1` y dejo solo `seed.js`?
 **Recomendación para entrega:**  
-✅ Deja `seed.js` como el seed oficial (**cross-platform** y usable dentro de Docker).  
-🟡 `seed.ps1` puedes **mantenerlo como opcional** (solo Windows) **o borrarlo** para evitar confusión.
+ Deja `seed.js` como el seed oficial (**cross-platform** y usable dentro de Docker).  
+ `seed.ps1` puedes **mantenerlo como opcional** (solo Windows) **o borrarlo** para evitar confusión.
 
 Si quieres una entrega “limpia”, **quédate solo con `seed.js`**.
 
