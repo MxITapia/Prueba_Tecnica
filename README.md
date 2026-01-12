@@ -5,8 +5,8 @@ Repositorio con **2 directorios principales**:
 - **`Front/`** → SPA en **Angular 19** (gestión de productos + filtros, login, UI).
 - **`Back/`** → API REST en **Node.js + Express** + **MySQL** (CRUD productos, categorías, auth).
 
->  Incluye **Dockerfile** para Front y Back.  
->  Incluye **docker-compose** para levantar **Back + MySQL** y **seed automático** (usuario demo + categorías).
+> ✅ Incluye **Dockerfile** para Front y Back.  
+> ✅ Incluye **docker-compose** para levantar **Back + MySQL** y **seed automático** (usuario demo + categorías).
 
 ---
 
@@ -166,7 +166,7 @@ cd Back
 docker compose up db -d
 ```
 
-2) Ajusta  `.env` local del backend para apuntar al puerto del contenedor desde el host:
+2) Ajusta tu `.env` local del backend para apuntar al puerto del contenedor desde el host:
 
 ```env
 PORT=3000
@@ -189,8 +189,15 @@ npm run start
 ---
 
 # 7) Seed “pro” (recomendado)
- `seed.js` como el seed oficial (**cross-platform** y usable dentro de Docker).  
 
+## ¿Borro `seed.ps1` y dejo solo `seed.js`?
+**Recomendación para entrega:**  
+✅ Deja `seed.js` como el seed oficial (**cross-platform** y usable dentro de Docker).  
+🟡 `seed.ps1` puedes **mantenerlo como opcional** (solo Windows) **o borrarlo** para evitar confusión.
+
+Si quieres una entrega “limpia”, **quédate solo con `seed.js`**.
+
+---
 
 # 8) Docker (Front y Back)
 
