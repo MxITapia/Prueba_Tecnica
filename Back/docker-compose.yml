@@ -20,20 +20,20 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - PORT=3000
-      - DB_HOST=db
-      - DB_PORT=3306
-      - DB_USER=root
-      - DB_PASS=root
-      - DB_NAME=product_db
-      - DB_DIALECT=mysql
-      - JWT_SECRET=supersecretkey_change_in_production
+      PORT: "3000"
+      DB_HOST: "db"
+      DB_PORT: "3306"
+      DB_USER: "root"
+      DB_PASS: "root"
+      DB_NAME: "product_db"
+      DB_DIALECT: "mysql"
+      JWT_SECRET: "supersecretkey_change_in_production"
     depends_on:
       db:
         condition: service_healthy
     restart: always
     healthcheck:
-      test: ["CMD-SHELL", "wget -qO- http://localhost:3000/ > /dev/null || exit 1"]
+      test: ["CMD-SHELL", "curl -fsS http://localhost:3000/ > /dev/null || exit 1"]
       interval: 5s
       timeout: 3s
       retries: 30
@@ -44,9 +44,10 @@ services:
       app:
         condition: service_healthy
     environment:
-      - SEED_BASE_URL=http://app:3000/api
-      - SEED_ADMIN_USER=admin@vector.cl
-      - SEED_ADMIN_PASS=Admin10.01
+      SEED_BASE_URL: "http://app:3000/api"
+      SEED_PING_URL: "http://app:3000"
+      SEED_ADMIN_USER: "admin@vector.cl"
+      SEED_ADMIN_PASS: "Admin10.01"
     command: ["node", "scripts/seed.js"]
     restart: "no"
 
